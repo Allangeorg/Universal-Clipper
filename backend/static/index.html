@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0c10" />
+  <title>Universal Studio — AI Video Editing &amp; Framing Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css?v=0.6.4" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <div class="brand-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <div class="brand-text">UNIVERSAL <span class="brand-sub">STUDIO</span></div>
+      </a>
+      <div class="side-label">WORKSTATION</div>
+      <button class="side-link active" id="nav-create">
+        <svg class="side-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Import &amp; Create</span>
+      </button>
+      <button class="side-link" id="nav-library">
+        <svg class="side-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>Projects &amp; Queue</span>
+      </button>
+      <button class="side-link" id="nav-storage">
+        <svg class="side-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
+        <span>Storage &amp; Disk</span>
+        <span class="sidebar-badge" id="sidebar-storage-badge">…</span>
+      </button>
+      <button class="side-link" id="nav-settings">
+        <svg class="side-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>AI Engine</span>
+      </button>
+      <div class="sidebar-spacer"></div>
+      <div class="local-card">
+        <span class="status-dot"></span>
+        <div>
+          <strong>LOCAL ENGINE</strong>
+          <small>GPU NVENC · On-device signals</small>
+        </div>
+      </div>
+      <div class="sidebar-foot">BUILD 0.6.4 · HARDWARE STUDIO</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-identity">
+          <div class="studio-status-row">
+            <span class="studio-tag">STUDIO DECK</span>
+            <span class="studio-engine-pill" id="studio-engine-badge"><span class="engine-dot"></span> NVIDIA Nemotron 550B &amp; Groq Whisper</span>
+          </div>
+          <h1>Universal Studio</h1>
+          <p class="topbar-sub">Intelligent vertical framing and highlight assembly workstation</p>
+        </div>
+        <div class="top-actions">
+          <button type="button" class="storage-pill-btn" id="open-storage-btn" title="Open local storage &amp; disk manager">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+            <span id="topbar-storage-size">…</span>
+            <span class="storage-tag">STORAGE</span>
+          </button>
+          <span class="local-pill"><span class="status-dot"></span> Local NVENC · Cloud AI</span>
+          <button class="icon-button" id="refresh-btn" title="Refresh projects">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="panel settings-panel hidden" id="settings-panel">
+        <div class="section-head">
+          <h2>Provider Configuration</h2>
+          <span class="muted">OS credential vault integration</span>
+        </div>
+        <div class="settings-intro"><strong>Connect your AI providers once.</strong>
+          <p>API keys are saved in your operating-system credential vault. They are never returned to the browser after
+            saving, and are not written into project files or Git.</p>
+        </div>
+        <div class="settings-grid">
+          <div class="settings-card">
+            <div class="settings-card-head">
+              <div><span class="mini-kicker">TEXT + VISION INTELLIGENCE</span>
+                <h3>OpenRouter / NVIDIA NIM</h3>
+              </div><span id="openrouter-status" class="provider-status">Not connected</span>
+            </div>
+            <label class="settings-label" for="openrouter-key">API Key (OpenRouter or NVIDIA NIM)</label>
+            <div class="settings-key-row"><input id="openrouter-key" type="password" autocomplete="new-password"
+                placeholder="sk-or-v1-… or nvapi-…" /><button class="quiet-button" id="save-openrouter-key">Save key</button></div>
+            <div class="settings-actions"><button class="quiet-button" id="test-openrouter">Test
+                connection</button><button class="quiet-button danger-button" id="delete-openrouter-key">Remove
+                key</button></div>
+            <div class="settings-field"><label class="settings-label" for="llm-model">AI ranking model</label>
+              <div class="settings-select-row"><select id="llm-model">
+                  <option value="openrouter/auto">openrouter/auto · automatic routing</option>
+                </select><button class="quiet-button" id="load-text-models">Refresh models</button></div>
+            </div>
+            <div class="settings-field"><label class="settings-label" for="vision-model">Vision model</label>
+              <div class="settings-select-row"><select id="vision-model">
+                  <option value="">Select a vision-capable model</option>
+                </select><button class="quiet-button" id="load-vision-models">Load vision models</button></div><small
+                class="control-help">Required for AI subject framing and visual edit direction. Select a model from this
+                list; a text-only ranking model cannot inspect frames.</small>
+            </div>
+            <label class="settings-check"><input type="checkbox" id="vision-enabled" checked /><span><strong>Enable
+                  visual candidate review</strong><small>Send a small number of sampled still frames to a vision-capable
+                  model, never the full source video.</small></span></label>
+            <label class="settings-check"><input type="checkbox" id="send-transcript" checked /><span><strong>Allow
+                  transcript analysis</strong><small>Transcript text can be sent to OpenRouter for semantic highlight
+                  ranking.</small></span></label>
+            <label class="settings-check"><input type="checkbox" id="send-frames" checked /><span><strong>Allow sampled
+                  frame analysis</strong><small>Only selected candidate frames are sent for visual
+                  review.</small></span></label>
+          </div>
+          <div class="settings-card">
+            <div class="settings-card-head">
+              <div><span class="mini-kicker">CLOUD SPEECH RECOGNITION</span>
+                <h3>Transcription API</h3>
+              </div><span id="transcription-status" class="provider-status">Not connected</span>
+            </div>
+            <label class="settings-label" for="transcription-provider">Speech provider</label>
+            <select id="transcription-provider" class="settings-control">
+              <option value="openrouter">OpenRouter · Whisper Large V3 Turbo</option>
+              <option value="groq">Groq · Whisper large-v3 turbo</option>
+              <option value="openai">OpenAI · GPT Transcribe</option>
+              <option value="disabled">Disabled</option>
+            </select>
+            <label class="settings-label" for="transcription-model">Transcription model</label>
+            <div class="settings-select-row"><input id="transcription-model" class="settings-control"
+                list="transcription-models" type="text" value="openai/whisper-large-v3-turbo" /><datalist
+                id="transcription-models"></datalist><button class="quiet-button" id="load-transcription-models">Load
+                models</button></div>
+            <div id="transcription-openrouter-note" class="settings-note"><strong>One OpenRouter key is enough.</strong>
+              <p>When OpenRouter is selected, transcription shares the OpenRouter key saved in the card on the left. No
+                second key is needed.</p>
+            </div>
+            <div id="transcription-external-key" class="hidden">
+              <label class="settings-label" for="transcription-key">Provider API key</label>
+              <div class="settings-key-row"><input id="transcription-key" type="password" autocomplete="new-password"
+                  placeholder="Paste Groq or OpenAI key" /><button class="quiet-button" id="save-transcription-key">Save
+                  key</button></div>
+              <div class="settings-actions"><button class="quiet-button danger-button"
+                  id="delete-transcription-key">Remove key</button></div>
+            </div>
+            <div class="settings-actions"><button class="quiet-button" id="test-transcription">Test connection</button>
+            </div>
+            <label class="settings-check"><input type="checkbox" id="transcription-enabled"
+                checked /><span><strong>Enable cloud transcription</strong><small>Audio is extracted locally, then sent
+                  in compressed chunks to the selected speech API. Long recordings are split into bounded
+                  uploads.</small></span></label>
+            <div class="settings-note"><strong>One-key setup recommended.</strong>
+              <p>OpenRouter supports chat, vision-capable chat models and speech-to-text with the same API key. Groq and
+                OpenAI are optional alternatives for transcription only.</p>
+            </div>
+          </div>
+        </div>
+        <div class="settings-footer"><span id="settings-save-state" class="muted">Settings not loaded</span><button
+            class="primary-button" id="save-preferences">Save Preferences</button></div>
+      </section>
+
+      <section class="ingest-panel panel" id="create-panel">
+        <div class="section-head">
+          <div>
+            <h2>Import Footage</h2>
+          </div><span class="muted">Local video files or web stream links</span>
+        </div>
+        <div class="ingest-grid">
+          <label class="dropzone" id="dropzone" for="video-file">
+            <input type="file" id="video-file" accept=".mp4,.mov,.mkv,.webm,.avi,.m4v,.mts,.m2ts,video/*" hidden />
+            <div class="upload-icon-wrapper">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <strong>Drop your video here</strong>
+            <span class="muted">or <u class="browse-link">browse files</u></span>
+            <div class="format-chips">
+              <span>MP4</span><span>MOV</span><span>MKV</span><span>WEBM</span><span>AVI</span>
+            </div>
+            <small>Local hardware decoding · zero external file uploads</small>
+          </label>
+          <div class="url-box">
+            <div class="url-box-header">
+              <div class="url-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </div>
+              <div>
+                <strong>Import from a URL</strong>
+                <p class="muted">Stream replays, podcasts, or YouTube links directly.</p>
+              </div>
+            </div>
+            <div class="url-input-wrapper">
+              <input type="url" id="video-url" placeholder="https://www.youtube.com/watch?v=..." />
+              <button type="button" class="paste-url-button" id="paste-url-btn" title="Paste URL from clipboard">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>Paste</span>
+              </button>
+            </div>
+            <button class="primary-button url-submit-btn" id="url-submit">Import Video</button>
+            <p class="tiny-note">YouTube links are processed locally via yt-dlp. Audio is extracted on device for analysis.</p>
+          </div>
+        </div>
+        <div class="creation-controls panel-subpanel">
+          <div class="creation-control-heading">
+            <div><strong>Shorts Duration &amp; Framing Model</strong></div><span class="default-chip">9:16 VERTICAL</span>
+          </div>
+
+          <div class="duration-preset-shelf">
+            <span class="shelf-label">Duration Presets:</span>
+            <div class="duration-pills-row">
+              <button type="button" class="duration-pill active" data-preset="60">60s Standard (Default)</button>
+              <button type="button" class="duration-pill" data-preset="30">30s Rapid Hook</button>
+              <button type="button" class="duration-pill" data-preset="90">90s In-Depth</button>
+              <button type="button" class="duration-pill" data-preset="custom">Custom Range</button>
+            </div>
+          </div>
+
+          <div class="creation-control-grid">
+            <div class="creation-control">
+              <label class="field-label" for="duration-mode">Duration Mode</label>
+              <select id="duration-mode">
+                <option value="exact" selected>Exact duration</option>
+                <option value="range">Flexible range</option>
+              </select>
+              <div id="duration-range-fields" class="duration-fields hidden">
+                <label class="field-label" for="clip-min-seconds">Min Seconds<input id="clip-min-seconds"
+                    type="number" min="5" max="600" step="1" value="30" /></label>
+                <label class="field-label" for="clip-max-seconds">Max Seconds<input id="clip-max-seconds"
+                    type="number" min="5" max="600" step="1" value="60" /></label>
+              </div>
+              <div id="duration-exact-fields" class="duration-fields">
+                <label class="field-label" for="clip-exact-seconds">Exact Seconds<input
+                    id="clip-exact-seconds" type="number" min="5" max="600" step="1" value="60" /></label>
+              </div>
+              <small class="control-help">Exact duration enforces consistent timeline targets across all discovered highlights.</small>
+              <button type="button" class="quiet-button primary-accent-btn hidden" id="apply-to-active-btn"
+                style="margin-top:10px; width:100%; font-size:12px; font-weight:600;">Apply Duration &amp; Re-discover</button>
+            </div>
+            <div class="creation-control">
+              <label class="field-label" for="editing-intelligence">Editing Intelligence</label>
+              <select id="editing-intelligence">
+                <option value="conservative">Conservative · Context Priority</option>
+                <option value="balanced" selected>Balanced · Recommended</option>
+                <option value="aggressive">High Energy · Climax Priority</option>
+              </select>
+              <small class="control-help">Balanced weighs speech coherence, visual activity, and vocal excitement.</small>
+            </div>
+            <div class="creation-control">
+              <label class="field-label" for="create-aspect">Output Aspect Ratio</label>
+              <select id="create-aspect">
+                <option value="9:16" selected>Vertical · 9:16</option>
+              </select>
+              <small class="control-help">Framed with AI adaptive subject tracking for TikTok, Shorts, and Reels.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="branding-controls panel-subpanel">
+          <div class="creation-control-heading">
+            <div>
+              <strong>Campaign Brief &amp; Watermark</strong>
+            </div>
+            <span class="default-chip">DIRECTIVES</span>
+          </div>
+
+          <div class="brief-preset-shelf">
+            <span class="shelf-label">Viral Formulas:</span>
+            <div class="brief-tags-row">
+              <button type="button" class="brief-formula-tag" data-formula="twitch">Streamer Climax &amp; Hold</button>
+              <button type="button" class="brief-formula-tag" data-formula="epiphany">Counterintuitive Epiphany</button>
+              <button type="button" class="brief-formula-tag" data-formula="story">Confessional Story Arc</button>
+            </div>
+          </div>
+
+          <div class="branding-content-grid">
+            <div>
+              <label class="field-label" for="campaign-brief">Directives, Mandatory Hashtags &amp; Callouts</label>
+              <textarea id="campaign-brief" rows="3" class="brief-textarea" placeholder="Enter creator brief or select a viral formula above..."></textarea>
+              <small class="control-help">AI prioritizes candidate segments matching these directives and crafts ready-to-post social copy.</small>
+            </div>
+            <div class="branding-options-grid">
+              <div>
+                <label class="field-label" for="logo-upload-input">Brand Logo / Watermark</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="file" id="logo-upload-input" accept="image/png,image/jpeg,image/webp"
+                    style="display: none;" />
+                  <button type="button" class="quiet-button" id="logo-browse-btn" style="white-space: nowrap;">📁 Upload
+                    Logo</button>
+                  <button type="button" class="quiet-button hidden" id="logo-remove-btn"
+                    style="color: var(--red);">Remove</button>
+                </div>
+                <div id="logo-preview-box" class="logo-preview-box hidden">
+                  <img id="logo-preview-img" class="logo-preview-img" src="" alt="Logo preview" />
+                  <span id="logo-filename" class="muted" style="font-size: 11px;">logo.png</span>
+                </div>
+              </div>
+              <div>
+                <label class="field-label" for="logo-position">Logo Placement</label>
+                <select id="logo-position">
+                  <option value="top-right" selected>Top Right (Recommended)</option>
+                  <option value="top-left">Top Left</option>
+                  <option value="bottom-right">Bottom Right (Above Captions)</option>
+                  <option value="bottom-left">Bottom Left (Above Captions)</option>
+                  <option value="top-center">Top Center</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for="logo-scale">Logo Size</label>
+                <select id="logo-scale">
+                  <option value="0.15">Small (15% width)</option>
+                  <option value="0.20" selected>Standard (20% width)</option>
+                  <option value="0.25">Large (25% width)</option>
+                  <option value="0.30">Extra Large (30% width)</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for="logo-opacity">Logo Opacity</label>
+                <select id="logo-opacity">
+                  <option value="1.0">100% Solid</option>
+                  <option value="0.90" selected>90% Subtle</option>
+                  <option value="0.80">80% Watermark</option>
+                  <option value="0.65">65% Faded</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="capability-row"><span>CREATION PIPELINE</span><span>Audio signals</span><span>Visual
+            motion</span><span>API transcription</span><span>OpenRouter AI + vision</span><span>FFmpeg export</span>
+        </div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="project-column">
+          <div class="section-head project-head">
+            <div>
+              <h2>Projects &amp; History</h2>
+            </div><button class="text-button" id="see-all">View All</button>
+          </div>
+          <div id="jobs-list" class="jobs-list">
+            <div class="empty-state">
+              <div class="empty-symbol">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              </div><strong>No projects queued</strong>
+              <p>Import a recording or URL above to begin discovering highlights.</p>
+            </div>
+          </div>
+
+          <div id="detail-panel" class="detail-panel hidden">
+            <div class="section-head">
+              <div>
+                <h2>Candidate Highlights</h2>
+              </div><span class="muted" id="clip-count-label">0 candidates</span>
+            </div>
+            <div class="review-toolbar">
+              <div><strong id="active-source-name">Source video</strong><small id="source-meta" class="muted">Waiting
+                  for analysis</small></div>
+              <div class="selection-actions"><button class="quiet-button" id="select-all">Select all</button><button
+                  class="quiet-button" id="select-none">Clear</button></div>
+            </div>
+            <div class="project-duration-bar">
+              <div class="duration-controls-inline">
+                <span class="inline-label">TARGET DURATION:</span>
+                <select id="active-duration-mode" aria-label="Active duration mode">
+                  <option value="exact">Exact duration</option>
+                  <option value="range">Flexible range</option>
+                </select>
+                <span id="active-exact-group">
+                  <input id="active-exact-seconds" type="number" min="5" max="600" step="1" value="60"
+                    title="Exact clip duration in seconds" /> sec
+                </span>
+                <span id="active-range-group" class="hidden">
+                  <input id="active-min-seconds" type="number" min="5" max="600" step="1" value="30"
+                    title="Minimum duration" /> –
+                  <input id="active-max-seconds" type="number" min="5" max="600" step="1" value="60"
+                    title="Maximum duration" /> sec
+                </span>
+                <button class="quiet-button primary-accent-btn" id="rediscover-btn"
+                  title="Re-discover candidate clips with these duration settings">Re-discover Moments</button>
+              </div>
+            </div>
+            <div class="project-brief-bar">
+              <div class="brief-bar-header">
+                <span class="inline-label">DIRECTIVES &amp; BRANDING:</span>
+                <span id="active-brief-status" class="muted" style="font-size: 11px;">Custom targeting active</span>
+              </div>
+              <div class="brief-input-row">
+                <textarea id="active-campaign-brief" rows="2" class="brief-textarea"
+                  placeholder="Set or edit campaign brief instructions (e.g. hashtags, required caption lines, creator directives)..."></textarea>
+                <button class="quiet-button primary-accent-btn" id="update-brief-btn"
+                  style="white-space: nowrap; padding: 10px 16px;"
+                  title="Re-rank and adapt candidate clips to this brief">Apply Brief &amp; Re-discover</button>
+              </div>
+            </div>
+            <div id="warnings" class="warning-list hidden"></div>
+            <div id="clips-list" class="clips-list"></div>
+            <section id="editor-panel" class="editor-panel hidden">
+              <div class="editor-header">
+                <div><span class="mini-kicker">CLIP EDITOR · NON-DESTRUCTIVE</span>
+                  <h3 id="editor-title">Edit your clip</h3>
+                  <p id="editor-subtitle" class="muted">Adjust timing, framing, speed, audio and captions before
+                    rendering.</p>
+                </div>
+                <button class="quiet-button" id="close-editor">Close editor ×</button>
+              </div>
+              <div class="editor-grid">
+                <div class="editor-preview-column">
+                  <div class="preview-stage" id="preview-stage">
+                    <video id="editor-video" controls playsinline preload="metadata"></video>
+                    <div class="preview-format-tag" id="preview-format-tag">9:16 · PREVIEW</div>
+                    <button type="button" class="safe-zone-toggle-btn" id="toggle-safe-zone" title="Toggle TikTok / Reels Safe Zone Overlay">📱 Safe Zone Guides</button>
+                    <div class="safe-zone-overlay hidden" id="safe-zone-overlay">
+                      <div class="sz-header">TOP HEADER SAFE ZONE (15%)</div>
+                      <div class="sz-rail-right">
+                        <span>♥ 240K</span>
+                        <span>💬 4.1K</span>
+                        <span>↗ Share</span>
+                        <span>🎵 Sound</span>
+                      </div>
+                      <div class="sz-bottom-bar">
+                        <span class="sz-user-tag">@creator · Follow</span>
+                        <span class="sz-caption-box">Caption &amp; Sound Rail Safe Boundary</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="transport-row">
+                    <button class="quiet-button" id="preview-play">Play / Pause</button>
+                    <span id="preview-timecode" class="mono">00:00 / 00:00</span>
+                    <button class="quiet-button" id="jump-in">Go to In</button>
+                    <button class="quiet-button" id="jump-out">Go to Out</button>
+                    <button class="quiet-button" id="split-at-playhead">Split at playhead</button>
+                  </div>
+                  <div class="timeline-editor">
+                    <div class="timeline-heading"><strong>EDIT TIMELINE</strong><span>Drag the playhead or set precise
+                        in/out points</span></div>
+                    <div class="timeline-ruler" id="timeline-ruler"></div>
+                    <div class="timeline-track"><span class="track-name">VIDEO</span>
+                      <div class="track-lane">
+                        <div class="clip-range" id="clip-range"></div>
+                        <div class="playhead" id="timeline-playhead"></div>
+                      </div>
+                    </div>
+                    <div class="timeline-track"><span class="track-name">AUDIO</span>
+                      <div class="track-lane audio-lane">
+                        <div class="audio-wave-track">
+                          <div class="wave-bars">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                          </div>
+                          <span class="audio-track-label">AUDIO · -14 LUFS NORMALIZED</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="timeline-track"><span class="track-name">CAPTIONS</span>
+                      <div class="track-lane caption-lane">
+                        <div class="caption-track-placeholder">AUTO CAPTIONS / TITLE OVERLAY</div>
+                      </div>
+                    </div>
+                    <input type="range" id="playhead-range" min="0" max="100" step="0.1" value="0"
+                      aria-label="Timeline playhead" class="timeline-scrubber" />
+                    <div class="trim-grid">
+                      <label>IN POINT <div class="time-input"><input type="number" id="edit-start" min="0"
+                            step="0.1" /><span>sec</span></div></label>
+                      <label>OUT POINT <div class="time-input"><input type="number" id="edit-end" min="0"
+                            step="0.1" /><span>sec</span></div></label>
+                      <div class="trim-duration"><small>EDIT DURATION</small><strong id="edit-duration">00:30</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="editor-controls">
+                  <div class="control-section ai-assistant-section">
+                    <div class="control-title"><strong>AI Editing Assistant</strong><span>AI</span></div>
+                    <p class="control-help">Give natural-language instructions (e.g. "make cinematic", "subtitles top",
+                      "split layout", "make 60s").</p>
+                    <div class="ai-chips-shelf">
+                      <span class="shelf-label">QUICK ASSIST ACTIONS:</span>
+                      <div class="ai-chips-row">
+                        <button type="button" class="ai-prompt-chip" data-ai="Punch in 1.15x dynamic scale on climactic speech">⚡ 1.15x Punch-in</button>
+                        <button type="button" class="ai-prompt-chip" data-ai="Center facecam framing and rule-of-thirds eye line">🎯 Center Facecam</button>
+                        <button type="button" class="ai-prompt-chip" data-ai="High contrast bold pop captions with karaoke highlight">🔥 Pop Captions</button>
+                        <button type="button" class="ai-prompt-chip" data-ai="Normalize loudness to -14 LUFS standard">🔊 Normalize Audio</button>
+                      </div>
+                    </div>
+                    <div class="two-fields" style="display:flex;gap:8px;margin-top:10px;">
+                      <input type="text" id="ai-assist-input"
+                        placeholder="e.g. Make this cinematic with subtitles at top"
+                        style="flex:1;padding:8px 10px;background:#14171d;border:1px solid #2a303c;color:#f0f3f6;border-radius:6px;font-size:13px;" />
+                      <button class="primary-button" id="ai-assist-btn"
+                        style="white-space:nowrap;padding:8px 14px;">Apply</button>
+                    </div>
+                    <div id="ai-assist-feedback" class="hidden"
+                      style="margin-top:8px;font-size:12px;color:#38bdf8;background:rgba(56,189,248,0.1);padding:6px 10px;border-radius:4px;border:1px solid rgba(56,189,248,0.2);">
+                    </div>
+                  </div>
+                  <div class="control-section">
+                    <div class="control-title"><strong>Canvas & framing</strong><span>01</span></div>
+                    <label class="field-label">Output format<select id="edit-aspect">
+                        <option value="9:16">Vertical · 9:16</option>
+                        <option value="16:9">Landscape · 16:9</option>
+                        <option value="1:1">Square · 1:1</option>
+                        <option value="original">Original dimensions</option>
+                      </select></label>
+                    <label class="field-label" for="edit-framing-mode">Vertical framing<select id="edit-framing-mode">
+                        <option value="adaptive" selected>AI adaptive · track visible subjects</option>
+                        <option value="full_frame">Show entire source · blurred fill</option>
+                        <option value="smart_crop">Experimental local face crop</option>
+                        <option value="manual_crop">Manual crop to fill screen</option>
+                      </select></label>
+                    <p class="control-help">Full-frame preserves the complete original picture inside 9:16. Smart crop
+                      fills the canvas but necessarily removes parts of landscape footage.</p>
+                    <label class="field-label">Horizontal focus <output id="focus-x-value">50%</output><input
+                        type="range" id="focus-x" min="0" max="1" step="0.01" value="0.5" /></label>
+                    <label class="field-label">Vertical focus <output id="focus-y-value">50%</output><input type="range"
+                        id="focus-y" min="0" max="1" step="0.01" value="0.5" /></label>
+                    <label class="field-label">Zoom <output id="zoom-value">1.0×</output><input type="range"
+                        id="edit-zoom" min="1" max="2.5" step="0.05" value="1" /></label>
+                    <div class="button-row"><button class="preset-button" data-focus="left">Left</button><button
+                        class="preset-button active" data-focus="center">Center</button><button class="preset-button"
+                        data-focus="right">Right</button></div>
+                  </div>
+                  <div class="control-section">
+                    <div class="control-title"><strong>Motion & audio</strong><span>02</span></div>
+                    <label class="field-label">Playback speed <output id="speed-value">1.0×</output><input type="range"
+                        id="edit-speed" min="0.5" max="2" step="0.05" value="1" /></label>
+                    <label class="field-label">Original audio volume <output id="volume-value">100%</output><input
+                        type="range" id="edit-volume" min="0" max="2" step="0.05" value="1" /></label>
+                    <div class="two-fields"><label class="field-label">Fade in (sec)<input type="number" id="fade-in"
+                          min="0" max="3" step="0.1" value="0" /></label><label class="field-label">Fade out (sec)<input
+                          type="number" id="fade-out" min="0" max="3" step="0.1" value="0" /></label></div>
+                    <label class="check-line"><input type="checkbox" id="preserve-audio" checked /><span>Keep original
+                        audio</span></label>
+                    <label class="check-line"><input type="checkbox" id="normalize-audio" checked /><span>Normalize to
+                        -14 LUFS / -1 dBTP</span></label>
+                  </div>
+                  <div class="control-section">
+                    <div class="control-title"><strong>Colour grading</strong><span>03</span></div>
+                    <label class="field-label">Brightness <output id="brightness-value">0</output><input type="range"
+                        id="edit-brightness" min="-0.25" max="0.25" step="0.01" value="0" /></label>
+                    <label class="field-label">Contrast <output id="contrast-value">1.00</output><input type="range"
+                        id="edit-contrast" min="0.5" max="2" step="0.05" value="1" /></label>
+                    <label class="field-label">Saturation <output id="saturation-value">1.00</output><input type="range"
+                        id="edit-saturation" min="0" max="2" step="0.05" value="1" /></label>
+                  </div>
+                  <div class="control-section">
+                    <div class="control-title"><strong>Captions & titles</strong><span>04</span></div>
+                    <label class="check-line"><input type="checkbox" id="captions-enabled" /><span>Burn captions into
+                        the video</span></label>
+                    <label class="field-label">Caption style<select id="caption-style">
+                        <option value="karaoke">Karaoke highlight</option>
+                        <option value="bold">Bold pop</option>
+                        <option value="clean">Clean lower third</option>
+                        <option value="boxed">Boxed high contrast</option>
+                        <option value="minimal">Minimal</option>
+                      </select></label>
+                    <div class="two-fields"><label class="field-label">Font size<input type="number" id="caption-size"
+                          min="24" max="110" value="72" /></label><label class="field-label">Position<select
+                          id="caption-position">
+                          <option value="bottom">Bottom</option>
+                          <option value="middle">Middle</option>
+                          <option value="top">Top</option>
+                        </select></label></div>
+                    <div class="two-fields"><label class="field-label">Text colour<input type="color" id="caption-color"
+                          value="#FFFFFF" /></label><label class="field-label">Outline<input type="color"
+                          id="caption-outline" value="#000000" /></label></div>
+                    <label class="field-label">Opening title overlay<input type="text" id="title-overlay"
+                        maxlength="120" placeholder="Add an opening title (optional)" /></label>
+                    <label class="field-label">Manual caption text <textarea id="caption-text" rows="3" maxlength="4000"
+                        placeholder="Optional fallback captions when speech transcription is unavailable"></textarea></label>
+                    <p class="control-help">Auto captions use your saved transcription. If word timing is unavailable,
+                      segment timing is approximated. Manual caption text is used only when no transcript is available.
+                    </p>
+                  </div>
+                  <div class="editor-actions"><button class="quiet-button" id="reset-edit">Reset
+                      adjustments</button><button class="primary-button" id="render-edit">Render Edited Clip</button></div>
+                  <div id="edit-render-result" class="edit-render-result hidden"></div>
+                </div>
+              </div>
+            </section>
+            <div class="export-bar">
+              <div><strong>Ready to render?</strong><small id="selected-count">0 clips selected</small>
+                <div class="export-options"><label><input type="checkbox" id="export-ai-edit" checked /> AI edit
+                    plan</label><label><input type="checkbox" id="export-normalize-audio" checked /> Normalize
+                    audio</label><label><input type="checkbox" id="export-captions" checked /> Auto captions (avoid
+                    duplicates)</label></div>
+              </div>
+              <div class="export-controls"><select id="aspect-ratio">
+                  <option value="9:16">Vertical · 9:16</option>
+                  <option value="16:9">Landscape · 16:9</option>
+                  <option value="1:1">Square · 1:1</option>
+                  <option value="original">Original dimensions</option>
+                </select><select id="export-framing-mode">
+                  <option value="adaptive" selected>AI adaptive · subject-aware</option>
+                  <option value="full_frame">Full frame + blur fill</option>
+                  <option value="smart_crop">Experimental local face crop</option>
+                  <option value="manual_crop">Manual crop</option>
+                </select><button class="primary-button" id="export-btn">Export Selected Clips</button></div>
+            </div>
+            <div id="export-results" class="export-results hidden"></div>
+          </div>
+        </div>
+
+        <aside class="insight-column">
+          <div class="panel mini-panel">
+            <div class="mini-kicker">ENGINE PIPELINE</div>
+            <h3>Autonomous Signal &amp; Framing Deck</h3>
+            <div class="workflow-list">
+              <div class="workflow-item done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Inspect Media</strong><small>Hardware ffprobe duration &amp; streams</small></span></div>
+              <div class="workflow-item done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Acoustic &amp; Motion Signals</strong><small>RMS loudness peaks + scene diffs</small></span></div>
+              <div class="workflow-item done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Speech Recognition</strong><small>Groq Whisper Turbo chunked LPU</small></span></div>
+              <div class="workflow-item done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Deep Reasoning Ranking</strong><small>NVIDIA Nemotron 550B &amp; 120B Vision</small></span></div>
+              <div class="workflow-item done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Hardware NVENC Render</strong><small>Local GPU encode · safe-zone aligned</small></span></div>
+            </div>
+          </div>
+          <div class="panel system-panel">
+            <div class="mini-kicker">SYSTEM STATUS</div>
+            <div class="system-row"><span>API service</span><b class="good"><i></i> Online</b></div>
+            <div class="system-row"><span>FFmpeg</span><b id="ffmpeg-state" class="checking">Checking</b></div>
+            <div class="system-row"><span>YouTube downloader</span><b id="ytdlp-state" class="checking">Checking</b>
+            </div>
+            <div class="system-row"><span>OpenRouter AI</span><b class="optional" id="openrouter-health">Checking</b>
+            </div>
+            <div class="system-row"><span>Vision model</span><b class="optional" id="vision-model-health">Not
+                selected</b></div>
+            <div class="system-row"><span>Speech API</span><b class="optional" id="speech-health">Checking</b></div>
+            <p class="system-note">Zero cloud file storage. Video streams and rendered MP4 files remain 100% private on this laptop.</p>
+          </div>
+          <div class="tip-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent); flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div><strong>Precision Hardware Editing</strong>
+              <p>Adaptive 9:16 re-framing holds camera tracking on speaker eye lines and centers gameplay climax with dynamic punch-ins.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+      <footer><span>UNIVERSAL STUDIO · HARDWARE WORKSTATION</span><span>LOCAL NVENC ACCELERATED</span></footer>
+    </main>
+  </div>
+  <!-- Storage & Disk Manager Modal -->
+  <div id="storage-modal" class="modal-backdrop hidden">
+    <div class="modal-card storage-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="storage-modal-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
+          </div>
+          <div>
+            <h3>Local Storage &amp; Disk Manager</h3>
+            <p class="muted">Inspect and free downloaded stream replays and temporary render cache.</p>
+          </div>
+        </div>
+        <button type="button" class="icon-button close-modal-btn" id="close-storage-modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Visual Storage Meter -->
+        <div class="storage-meter-section">
+          <div class="storage-meter-header">
+            <span>TOTAL DISK FOOTPRINT</span>
+            <strong id="storage-total-display">0.00 GB</strong>
+          </div>
+          <div class="disk-progress-bar">
+            <div id="meter-sources" class="meter-segment meter-sources" style="width: 0%;" title="Raw Sources"></div>
+            <div id="meter-work" class="meter-segment meter-work" style="width: 0%;" title="Pipeline Cache"></div>
+            <div id="meter-exports" class="meter-segment meter-exports" style="width: 0%;" title="Exported Clips"></div>
+          </div>
+          <div class="storage-legend">
+            <div class="legend-item"><span class="legend-dot dot-sources"></span><span>Raw Sources: <strong id="storage-sources-display">0.00 GB</strong></span></div>
+            <div class="legend-item"><span class="legend-dot dot-work"></span><span>Pipeline Cache: <strong id="storage-work-display">0.00 GB</strong></span></div>
+            <div class="legend-item"><span class="legend-dot dot-exports"></span><span>Exported Shorts: <strong id="storage-exports-display">0.00 GB</strong></span></div>
+          </div>
+        </div>
+
+        <!-- Global Action Cards -->
+        <div class="storage-actions-grid">
+          <div class="storage-action-card">
+            <div class="storage-card-info">
+              <strong>🗑 Delete All Raw Source Videos</strong>
+              <p>Deletes downloaded stream replays and raw source footage in <code>data/sources/</code>. Your candidate timestamps, AI edit plans, and exported clips are completely preserved.</p>
+            </div>
+            <button type="button" class="danger-button storage-btn" id="btn-clear-all-sources">Free Up Raw Sources</button>
+          </div>
+
+          <div class="storage-action-card">
+            <div class="storage-card-info">
+              <strong>🧹 Clear Temporary Render Cache</strong>
+              <p>Cleans up extracted audio waveforms, Whisper speech chunks, and temporary sampled frame caches in <code>data/work/</code>.</p>
+            </div>
+            <button type="button" class="quiet-button storage-btn" id="btn-clear-all-work">Clear Render Cache</button>
+          </div>
+        </div>
+
+        <!-- Per-Project Breakdown -->
+        <div class="storage-projects-section">
+          <div class="section-subheading">
+            <strong>PER-PROJECT RAW VIDEO STORAGE</strong>
+            <small class="muted">Free disk space from specific videos without deleting other projects</small>
+          </div>
+          <div id="storage-jobs-list" class="storage-jobs-list">
+            <div class="muted" style="padding: 12px; text-align: center;">Loading storage details…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/static/app.js?v=0.6.5"></script>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+# Quality Gate Skill
+
+During the visual edit review, inspect the supplied frames for black/blank picture, low-detail or blurred footage, cut-off faces, clipped on-screen text, captions near platform UI safe zones, inconsistent subject framing, and shots where cropping would discard important context. Report uncertain cases as risks rather than inventing corrections. Do not claim that a rendered file passed local validation; FFprobe and the local render QA code are the authority for actual dimensions, decodability, duration and audio presence. The renderer must preserve source detail, keep the requested duration, and warn when the source itself is low resolution/bitrate or contains black-picture gaps.
